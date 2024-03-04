@@ -1,4 +1,4 @@
-## NutriDiab: Sistema de experto en Nutrición para la ayuda en la toma de decisiones alimenticias en personas con  Diabetes Tipo 2 y personas prediabeticas
+## NutriDiab: Sistema de experto basado en el conocimiento en nutriciónn para la ayuda en la toma de decisiones alimenticias en personas con  Diabetes Tipo 2 y personas prediabeticas
 La diabetes tipo 2 es una enfermedad crónica que afecta la manera en que el cuerpo procesa el azúcar en la sangre. Un sistema experto podría emplear lógica borrosa para personalizar recomendaciones dietéticas y de ejercicio basándose en lecturas de glucosa en sangre, peso, y otros factores personales, teniendo en cuenta la variabilidad y la imprecisión de las respuestas individuales a diferentes tratamientos.
 
 # Advertencia Legal y Descargo de Responsabilidad
