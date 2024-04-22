@@ -51,8 +51,24 @@
 )
 
 
+; VERIFICACIÓN DE LOS PACIENTES
+(defrule verificar_paciente
+    (declare (salience 9))
+    ?persona <- (persona (edad ?edad) (sexo ?sexo) (peso ?peso) (altura ?altura) (intolerancia ?intolerancia) (actividad ?actividad))
+    =>
+      (if (and (>= ?edad 3) (<= ?edad 100) (>= ?peso 25) (<= ?peso 200) 
+            (>= ?altura 50) (<= ?altura 200) (or (eq ?sexo "Masculino") (eq ?sexo "Femenino")) 
+            (or (eq ?actividad "Baja") (eq ?actividad "Media") (eq ?actividad "Alta"))) ; Alta = Avtiava, Media = Moderada, Baja = Sedentaria
+      then
+         (printout t "Paciente verificado" crlf)
+      else
+         (printout t "Paciente no verificado" crlf)
+         (retract ?persona))
+
+)
+
 (defrule imprimir-hechos
-    (declare (salience 4))
+    (declare (salience 1))
   =>
    (facts)
    )

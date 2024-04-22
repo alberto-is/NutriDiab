@@ -1,12 +1,12 @@
 Persona
     Edad
-        12
+        51
     Sexo
         Masculino
     Peso
-        2
+        80
     Altura
-        8
+        120
     Intolerancias
         Queso
     Actividad
