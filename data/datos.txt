@@ -1,0 +1,14 @@
+Persona
+    Edad
+        12
+    Sexo
+        Masculino
+    Peso
+        2
+    Altura
+        8
+    Intolerancias
+        Queso
+    Actividad
+        Alta
+
