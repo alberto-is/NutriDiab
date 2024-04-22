@@ -1,6 +1,6 @@
 Persona
     Edad
-        51
+        16
     Sexo
         Masculino
     Peso
