@@ -173,7 +173,63 @@
     (persona (edad ?edad))
     (calorias ?calorias)
     (test (>= ?edad  18))
+    (actividad-num ?actividad-num)
     =>
-    (assert (calorias-totales ?calorias))  
-    (printout t "Calorias: " ?calorias crlf)
+    (bind ?calorias-totales (* ?calorias ?actividad-num))
+    (assert (calorias-totales ?calorias-totales))  
+    (printout t "Calorias totales: " ?calorias-totales crlf)
+)
+
+;deficit calorico para personas con obesidad tipo-1
+(defrule calcular-deficit-calorico-obesidad-tipo-1
+    (declare (salience 2))
+    (imc-et "IMC-obesidad-tipo-1")
+    ?f <- (calorias-totales ?calorias-totales)
+    (not(deficit-calorico))
+    =>
+    (bind ?calorias-totales (- ?calorias-totales 300))
+    (retract ?f)
+    (assert (calorias-totales ?calorias-totales))
+    (assert (deficit-calorico))
+    (printout t "Calorias totales despues del deficit: " ?calorias-totales crlf)
+)
+;deficit calorico para personas con obesidad tipo-2
+(defrule calcular-deficit-calorico-obesidad-tipo-2
+    (declare (salience 2))
+    (imc-et "IMC-obesidad-tipo-2")
+    ?f <- (calorias-totales ?calorias-totales)
+    (not(deficit-calorico))
+    =>
+    (bind ?calorias-totales (- ?calorias-totales 450))
+    (retract ?f)
+    (assert (calorias-totales ?calorias-totales))
+    (assert (deficit-calorico))
+    (printout t "Calorias totales despues del deficit: " ?calorias-totales crlf)
+)
+;deficit calorico para personas con obesidad tipo-3
+(defrule calcular-deficit-calorico-obesidad-tipo-3
+    (declare (salience 2))
+    (imc-et "IMC-obesidad-tipo-3")
+    ?f <- (calorias-totales ?calorias-totales)
+    (not(deficit-calorico))
+    =>
+    (bind ?calorias-totales (- ?calorias-totales 600))
+    (retract ?f)
+    (assert (calorias-totales ?calorias-totales))
+    (assert (deficit-calorico))
+    (printout t "Calorias totales despues del deficit: " ?calorias-totales crlf)
+)
+
+;deficit calorico para personas con sobrepeso
+(defrule calcular-deficit-calorico-sobrepeso
+    (declare (salience 2))
+    (imc-et "IMC-sobrepeso")
+    ?f <- (calorias-totales ?calorias-totales)
+    (not(deficit-calorico))
+    =>
+    (bind ?calorias-totales (- ?calorias-totales 200))
+    (retract ?f)
+    (assert (calorias-totales ?calorias-totales))
+    (assert (deficit-calorico))
+    (printout t "Calorias totales despues del deficit: " ?calorias-totales crlf)
 )
