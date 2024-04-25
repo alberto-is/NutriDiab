@@ -8,7 +8,8 @@ Persona
     Altura
         120
     Intolerancias
-        Queso
+        Lácteos Gluten Cafeína Fructosa Cerdo
     Actividad
         Alta
-
+    Diabetes tipo 2
+        No

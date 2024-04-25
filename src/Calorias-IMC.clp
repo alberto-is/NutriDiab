@@ -168,17 +168,17 @@
 )
 
 ;FIXME: Hay que añadir que tenga en cuenta el imc
-(defrule calcularias-total-adultos
-    (declare (salience 2))
-    (persona (edad ?edad))
-    (calorias ?calorias)
-    (test (>= ?edad  18))
-    (actividad-num ?actividad-num)
-    =>
-    (bind ?calorias-totales (* ?calorias ?actividad-num))
-    (assert (calorias-totales ?calorias-totales))  
-    (printout t "Calorias totales: " ?calorias-totales crlf)
-)
+; (defrule calcularias-total-adultos
+;     (declare (salience 2))
+;     (persona (edad ?edad))
+;     (calorias ?calorias)
+;     (test (>= ?edad  18))
+;     (actividad-num ?actividad-num)
+;     =>
+;     (bind ?calorias-totales (* ?calorias ?actividad-num))
+;     (assert (calorias-totales ?calorias-totales))  
+;     (printout t "Calorias totales: " ?calorias-totales crlf)
+; )
 
 ;deficit calorico para personas con obesidad tipo-1
 (defrule calcular-deficit-calorico-obesidad-tipo-1
@@ -186,6 +186,8 @@
     (imc-et "IMC-obesidad-tipo-1")
     ?f <- (calorias-totales ?calorias-totales)
     (not(deficit-calorico))
+    (edad ?edad)
+    (test (>= ?edad  18))
     =>
     (bind ?calorias-totales (- ?calorias-totales 300))
     (retract ?f)
@@ -199,6 +201,8 @@
     (imc-et "IMC-obesidad-tipo-2")
     ?f <- (calorias-totales ?calorias-totales)
     (not(deficit-calorico))
+    (edad ?edad)
+    (test (>= ?edad  18))
     =>
     (bind ?calorias-totales (- ?calorias-totales 450))
     (retract ?f)
@@ -212,6 +216,8 @@
     (imc-et "IMC-obesidad-tipo-3")
     ?f <- (calorias-totales ?calorias-totales)
     (not(deficit-calorico))
+    (edad ?edad)
+    (test (>= ?edad  18))
     =>
     (bind ?calorias-totales (- ?calorias-totales 600))
     (retract ?f)
@@ -226,6 +232,8 @@
     (imc-et "IMC-sobrepeso")
     ?f <- (calorias-totales ?calorias-totales)
     (not(deficit-calorico))
+    (edad ?edad)
+    (test (>= ?edad  18))
     =>
     (bind ?calorias-totales (- ?calorias-totales 200))
     (retract ?f)

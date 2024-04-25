@@ -7,9 +7,10 @@
    (slot sexo)
    (slot peso)
    (slot altura)
-   (slot intolerancia)
+   (multislot intolerancia)
    (slot actividad))
 
+;Leer Datos paciente
 (defrule leer_archivo_Persona
     (declare (salience 10))
   =>
@@ -38,8 +39,8 @@
          (printout t ?data4 crlf) ;;;
    (bind ?data (readline data)) ; Intoleracia
          ;(printout t ?data crlf)  ;;;
-   (bind ?data (readline data)) ; string
-      (bind ?data5 (str-cat(string-to-field ?data))) ; convierte data6 a string
+    (bind ?data (readline data)) ; string
+         (bind ?data5 (explode$ (str-cat ?data))) ; convierte data6 a lista de strings
          (printout t ?data5 crlf)  ;;;
    (bind ?data (readline data)) ; Actividad
          ;(printout t ?data crlf)  ;;;
@@ -51,10 +52,10 @@
 )
 
 
-; VERIFICACIÓN DE LOS PACIENTES
+; Verificar Paciente
 (defrule verificar_paciente
     (declare (salience 9))
-    ?persona <- (persona (edad ?edad) (sexo ?sexo) (peso ?peso) (altura ?altura) (intolerancia ?intolerancia) (actividad ?actividad))
+    ?persona <- (persona (edad ?edad) (sexo ?sexo) (peso ?peso) (altura ?altura) (actividad ?actividad))
     =>
       (if (and (>= ?edad 3) (<= ?edad 100) (>= ?peso 25) (<= ?peso 200) 
             (>= ?altura 50) (<= ?altura 200) (or (eq ?sexo "Masculino") (eq ?sexo "Femenino")) 
@@ -67,6 +68,24 @@
 
 )
 
+; Obtener Intolerancia
+(defrule obtener-intolerancia
+      (declare (salience 8))
+      (persona (intolerancia $?intolerancia))
+      =>
+      ;(bind ?tercerIntolerancia (nth$ 3 ?intolerancia))
+      ;(printout t "Intolerancia: " (nth$ 3 ?intolerancia) crlf)
+;; Este código de abajo obtiene todas las intolerancias de la persona de una en una
+      (bind ?count 1)
+       (loop-for-count (?i 1 (length$ ?intolerancia))
+         (if (eq (nth$ ?i ?intolerancia) (sym-cat "Gluten")) then
+            (printout t "Intolerancia " ?i ": " (nth$ ?i ?intolerancia) crlf)
+        )
+    )
+)
+
+
+; Imprimir Hechos
 (defrule imprimir-hechos
     (declare (salience 1))
   =>
