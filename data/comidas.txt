@@ -1,0 +1,8 @@
+Manzana 95
+Banana 105
+Tostada-con-aguacate 320
+Huevos-revueltos 210
+Ensalada-de-pollo 350
+Sándwich-de-atún 480
+Jugo-de-naranja 160
+Café-con-leche 120
