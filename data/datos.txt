@@ -12,4 +12,4 @@ Persona
     Actividad
         Alta
     Diabetes tipo 2
-        No
+        Si

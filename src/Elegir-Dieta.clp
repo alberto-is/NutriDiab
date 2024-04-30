@@ -65,6 +65,7 @@
     )
 )
 
+; Comprueba que al menos un elemento de otra lista esté en la lista actual
 (deffunction comparten-elemento (?lista1 ?lista2)
     (foreach ?elemento ?lista1
         (if (member$ ?elemento ?lista2) then (return TRUE))
@@ -72,6 +73,7 @@
     (return FALSE)
 )
 
+; NOTE: Probar 
 ; Eliminamos cómidas que no cumplan con los requisitos
 (defrule eliminar-intoleracias
     (declare (salience 10))
@@ -108,11 +110,6 @@
                             (bind ?comida2 (nth$ ?j ?comidas-posibles))
                             (bind ?comida3 (nth$ ?k ?comidas-posibles))
                             (bind ?calorias-totales (+ (fact-slot-value ?comida1 calorias) (fact-slot-value ?comida2 calorias) (fact-slot-value ?comida3 calorias)))
-                            (printout t "Comidas seleccionadas para la dieta: " crlf)
-                            (printout t (fact-slot-value ?comida1 nombre) ", " (fact-slot-value ?comida1 calorias) " calorías" crlf)
-                            (printout t (fact-slot-value ?comida2 nombre) ", " (fact-slot-value ?comida2 calorias) " calorías" crlf)
-                            (printout t (fact-slot-value ?comida3 nombre) ", " (fact-slot-value ?comida3 calorias) " calorías" crlf)
-                            (printout t "Calorías totales: " ?calorias-totales crlf)
                             (assert (dieta (comida1 (fact-slot-value ?comida1 nombre)) 
                                             (comida2 (fact-slot-value ?comida2 nombre)) 
                                             (comida3 (fact-slot-value ?comida3 nombre)) 
@@ -128,14 +125,43 @@
 )
 
 ; Eliminar dietas que no cumplan con los requisitos
+; La comida2 debe ser mayor que la comida1 y la comida1 mayor que la comida3 en calorias
+; Por lo tanto, eliminaremos las dietas que no cumplan con esta regla
 (defrule eliminar-dieta
     (declare (salience 8))
-    ?d <- (dieta (calorias-totales ?calorias-totales) (carbohidratos ?carbohidratos))
-    
+    ?d <- (dieta (comida1 ?comida1) (comida2 ?comida2) (comida3 ?comida3))
+    ?c1 <- (comida (nombre ?comida1)(calorias ?calorias1))
+    ?c2 <- (comida (nombre ?comida2)(calorias ?calorias2))
+    ?c3 <- (comida (nombre ?comida3)(calorias ?calorias3))
+    (test (or (> ?calorias1 ?calorias2) (> ?calorias3 ?calorias1)))
     =>
     (retract ?d)
 )
-
+; Para evitar picos de insulina, la comida1 debe tener un indice glucemico bajo
+(defrule eliminar-dieta-indice-glucemico
+    (declare (salience 8))
+    ?d <- (dieta (comida1 ?comida1) (comida2 ?comida2) (comida3 ?comida3) (calorias-totales ?calorias-totales))
+    ?c1 <- (comida (nombre ?comida1)(indice-glucemico ?indice-glucemico))
+    (test (or (eq ?indice-glucemico "Alto") (eq ?indice-glucemico "Medio")))
+    =>
+    (retract ?d)
+)
+; Para evitar picos de insulina, la comida3 debe tener un indice glucemico igual o menor que la comida2
+; (Ya que el consumo de calorias por la noche es menor)
+(defrule eliminar-dieta-indice-glucemico2
+    (declare (salience 8))
+    ?d <- (dieta (comida1 ?comida1) (comida2 ?comida2) (comida3 ?comida3) (calorias-totales ?calorias-totales))
+    ?c2 <- (comida (nombre ?comida2)(indice-glucemico ?indice-glucemico2))
+    ?c3 <- (comida (nombre ?comida3)(indice-glucemico ?indice-glucemico3))
+    (test
+        (or
+            (and (eq ?indice-glucemico3 "Alto")(not (eq ?indice-glucemico2 "Alto")))
+            (and (eq ?indice-glucemico3 "Medio")(eq ?indice-glucemico2 "Bajo"))
+        )
+    )
+    =>
+    (retract ?d)
+)
 ; NOTE: Eliminar en el futuro
 (defrule main
     (declare (salience 10))

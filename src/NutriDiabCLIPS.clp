@@ -51,7 +51,7 @@
          (printout t ?data6 crlf)  ;;;
    (bind ?data (readline data)) ; diabetes
          ;(printout t ?data crlf)  ;;;
-         
+      (bind ?data (readline data)) ; string
       (bind ?data7 (str-cat(string-to-field ?data))) ; convierte data7 a string
          (printout t ?data7 crlf)  ;;;
    (assert (persona (edad ?data1) (sexo ?data2) (peso ?data3) (altura ?data4) (intolerancia ?data5) (actividad ?data6) (diabetes ?data7)))
