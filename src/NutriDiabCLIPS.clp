@@ -14,7 +14,7 @@
 ; NOTE: paso los datos string a strig-to-field para eliminar la tabulación inicial
 ;Leer Datos paciente
 (defrule leer_archivo_Persona
-    (declare (salience 10))
+    (declare (salience 11))
   =>
    (open "C:\\Users\\alber\\OneDrive\\Escritorio\\Gallego Sistema Experto\\NutriDiab\\data\\datos.txt" data "r")
    (bind ?data (readline data)) ; Persona
@@ -74,23 +74,6 @@
          (retract ?persona))
 
 )
-
-; Obtener Intolerancia
-(defrule obtener-intolerancia
-      (declare (salience 8))
-      (persona (intolerancia $?intolerancia))
-      =>
-      ;(bind ?tercerIntolerancia (nth$ 3 ?intolerancia))
-      ;(printout t "Intolerancia: " (nth$ 3 ?intolerancia) crlf)
-;; Este código de abajo obtiene todas las intolerancias de la persona de una en una
-      (bind ?count 1)
-       (loop-for-count (?i 1 (length$ ?intolerancia))
-         (if (eq (nth$ ?i ?intolerancia) (sym-cat "Gluten")) then
-            (printout t "Intolerancia " ?i ": " (nth$ ?i ?intolerancia) crlf)
-        )
-    )
-)
-
 
 ; Imprimir Hechos
 (defrule imprimir-hechos
