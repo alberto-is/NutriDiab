@@ -76,8 +76,8 @@
 )
 
 ; Imprimir Hechos
-(defrule imprimir-hechos
-    (declare (salience -1))
-  =>
-   (facts)
-   )
+; (defrule imprimir-hechos
+;     (declare (salience -1))
+;   =>
+;    (facts)
+;    )

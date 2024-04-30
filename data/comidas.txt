@@ -4,9 +4,9 @@ Manzana
     Bajo
     Bajo
     Manzana Fructosa
-Pechuga de pollo (sin piel) con 130 gramaos de lentejas
+Pechuga de pollo (sin piel) con lentejas
     750
-    82.42
+    83
     Medio
     Bajo
     Pollo Lentejas
@@ -46,3 +46,99 @@ Café con leche
     Bajo
     Bajo
     Leche Cafe Cafeina Lactosa
+Ensalada de pollo a la parrilla con aguacate y con quinoa
+    450
+    30
+    Medio
+    Bajo
+    Pollo Aguacate Quinoa Lechuga
+Wrap de pavo con hummus y con verduras mixtas
+    380
+    40
+    Alto
+    Medio
+    Pavo Hummus Tortilla Trigo Zanahoria Lechuga
+Sopa de lentejas con espinacas y trozos de pan integral
+    360
+    55
+    Alto
+    Medio
+    Lentejas Espinacas Pan Fibra
+Bowl de arroz integral con tofu salteado y verduras
+    420
+    65
+    Alto
+    Medio
+    Arroz Tofu Brocoli Zanahoria Pimiento
+Pasta integral con salsa de tomate y con albóndigas de pavo
+    500
+    70
+    Bajo
+    Medio
+    Pasta Tomate Pavo Albondigas Gluten
+Pasta con salsa de crema y con salmón
+    750
+    90
+    Medio
+    Medio
+    Pasta Salmon Crema Gluten Lactosa
+Arroz con pollo y con frijoles negros
+    700
+    85
+    Bajo
+    Medio
+    Arroz Pollo Frijoles negros Fibra
+Bocadillo de carne asada con queso y con batata frita
+    800
+    100
+    Bajo
+    Medio
+    Pan Carne Queso Batata Gluten Lactosa
+Ensalada de quinoa con aguacate, con huevo duro y con atún
+    650
+    55
+    Bajo
+    Bajo
+    Quinoa Aguacate Huevo Atun
+Burrito grande con arroz, con carne de cerdo, con guacamole y con frijoles
+    900
+    110
+    Bajo
+    Medio
+    Tortilla Carne Arroz Guacamole Frijoles Gluten Cerdo
+Croissant de almendra con batido de plátano y con proteína
+    600
+    80
+    Bajo
+    Alto
+    Croissant Almendra Platano Proteina Gluten Fructosa
+Avena cocida con nueces, con pasas y con trozos de chocolate
+    580
+    85
+    Bajo
+    Alto
+    Avena Nueces Pasas Chocolate Gluten Fructosa
+Ensalada de salmón asado con espinacas y aguacate
+    400
+    20
+    Medio
+    Bajo
+    Salmon Espinacas Aguacate
+Pollo a la parrilla con brócoli al vapor y quinoa
+    450
+    35
+    Alto
+    Bajo
+    Pollo Brocoli Quinoa
+Pasta blanca con salsa de tomate y albóndigas de carne
+    600
+    80
+    Bajo
+    Alto
+    Pasta Carne Tomate Gluten
+Arroz blanco con guisantes y zanahorias, servido con filetes de tilapia fritos
+    550
+    75
+    Bajo
+    Alto
+    Arroz Tilapia Guisantes Zanahorias

@@ -16,6 +16,7 @@
     (slot restricciones)
 )
 
+
 ;NOTE: Eliminar en el futurio, al igual que el main
 (deftemplate calorias-base
     (slot valor)
@@ -96,7 +97,7 @@
 ; NOTE: Genera todas las dietas posibles sin tener en cuenta las calorias
 (defrule seleccionar-dieta
     (declare (salience 8))
-    ?c <- (calorias-base (valor ?valor))
+    ?c <- (calorias-totales  ?valor)
     =>
     (bind ?comidas-posibles (find-all-facts ((?c comida)) TRUE)) ; NOTE: Cambiar true a que la comida no este en la lista de intoleracias
     (if (> (length$ ?comidas-posibles) 2)
@@ -162,10 +163,30 @@
     =>
     (retract ?d)
 )
-; NOTE: Eliminar en el futuro
-(defrule main
-    (declare (salience 10))
-    => 
-    (assert (calorias-base (valor 800)))  ; Suponemos un valor de calorías base
-    (run)
+; Eliminar dietas que no cumplan con el requisito calorico
+(defrule eliminar-dieta-calorias
+    (declare (salience 8))
+    ?d <- (dieta (comida1 ?comida1) (comida2 ?comida2) (comida3 ?comida3) (calorias-totales ?calorias-totales-dieta))
+    (calorias-totales ?valor)
+    (test 
+        (or 
+            (> ?calorias-totales-dieta (+ ?valor 200))
+            (< ?calorias-totales-dieta (- ?valor 200))
+        )
+    )
+    =>
+    (retract ?d)
+)
+
+;;;Mostar dieta;;;
+; Mostrar la dieta 
+(defrule mostrar-dieta
+    (declare (salience 0))
+    ?d <- (dieta (comida1 ?comida1) (comida2 ?comida2) (comida3 ?comida3) (calorias-totales ?calorias-totales))
+    =>
+    (printout t "Desayuno: " ?comida1 crlf)
+    (printout t "Almuerzo: " ?comida2 crlf)
+    (printout t "Cena: " ?comida3 crlf)
+    (printout t "Calorias totales: " ?calorias-totales crlf)
+    (printout t "--------------------------------------" crlf)
 )
