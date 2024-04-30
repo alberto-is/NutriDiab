@@ -14,7 +14,7 @@
 ; NOTE: paso los datos string a strig-to-field para eliminar la tabulación inicial
 ;Leer Datos paciente
 (defrule leer_archivo_Persona
-    (declare (salience 11))
+    (declare (salience 10))
   =>
    (open "C:\\Users\\alber\\OneDrive\\Escritorio\\Gallego Sistema Experto\\NutriDiab\\data\\datos.txt" data "r")
    (bind ?data (readline data)) ; Persona
@@ -61,7 +61,7 @@
 
 ; Verificar Paciente
 (defrule verificar_paciente
-    (declare (salience 9))
+    (declare (salience 10))
     ?persona <- (persona (edad ?edad) (sexo ?sexo) (peso ?peso) (altura ?altura) (actividad ?actividad))
     =>
       (if (and (>= ?edad 3) (<= ?edad 100) (>= ?peso 25) (<= ?peso 200) 
@@ -77,7 +77,7 @@
 
 ; Imprimir Hechos
 (defrule imprimir-hechos
-    (declare (salience 1))
+    (declare (salience -1))
   =>
    (facts)
    )
