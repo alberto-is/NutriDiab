@@ -1,8 +1,48 @@
-Manzana 95
-Banana 105
-Tostada-con-aguacate 320
-Huevos-revueltos 210
-Ensalada-de-pollo 350
-Sándwich-de-atún 480
-Jugo-de-naranja 160
-Café-con-leche 120
+Manzana 
+    52
+    14
+    Bajo
+    Bajo
+    Manzana Fructosa
+Pechuga de pollo (sin piel) con 130 gramaos de lentejas
+    750
+    82.42
+    Medio
+    Bajo
+    Pollo Lentejas
+Banana 
+    90
+    23
+    Bajo
+    Medio
+    Banana Platano Fructosa
+Tostada con aguacate y con tomate
+    320
+    45
+    Bajo
+    Medio
+    Pan Aguacate Tomate Fructosa Gluten
+Dos huevos revueltos 
+    220
+    0
+    Bajo
+    Bajo
+    Huevo
+Sándwich de atún
+    330
+    28
+    Bajo
+    Alto
+    Trigo Pan Atun Gluten
+Jugo de naranja
+    110
+    30
+    Bajo
+    Medio
+    Naranja Fructosa
+Café con leche
+    35
+    5
+    Bajo
+    Bajo
+    Leche Cafe Cafeina Lactosa

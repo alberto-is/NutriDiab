@@ -8,7 +8,7 @@ Persona
     Altura
         120
     Intolerancias
-        Lácteos Gluten Cafeína Fructosa Cerdo
+        Lacteos Gluten Cafeina Fructosa Cerdo
     Actividad
         Alta
     Diabetes tipo 2

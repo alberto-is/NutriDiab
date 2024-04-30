@@ -8,8 +8,10 @@
    (slot peso)
    (slot altura)
    (multislot intolerancia)
-   (slot actividad))
+   (slot actividad)
+   (slot diabetes))
 
+; NOTE: paso los datos string a strig-to-field para eliminar la tabulación inicial
 ;Leer Datos paciente
 (defrule leer_archivo_Persona
     (declare (salience 10))
@@ -47,7 +49,12 @@
    (bind ?data (readline data)) ; string
       (bind ?data6 (str-cat(string-to-field ?data))) ; convierte data7 a string
          (printout t ?data6 crlf)  ;;;
-   (assert (persona (edad ?data1) (sexo ?data2) (peso ?data3) (altura ?data4) (intolerancia ?data5) (actividad ?data6)))
+   (bind ?data (readline data)) ; diabetes
+         ;(printout t ?data crlf)  ;;;
+         
+      (bind ?data7 (str-cat(string-to-field ?data))) ; convierte data7 a string
+         (printout t ?data7 crlf)  ;;;
+   (assert (persona (edad ?data1) (sexo ?data2) (peso ?data3) (altura ?data4) (intolerancia ?data5) (actividad ?data6) (diabetes ?data7)))
    (close data)
 )
 
