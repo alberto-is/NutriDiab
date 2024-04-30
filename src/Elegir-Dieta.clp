@@ -91,60 +91,52 @@
     (retract ?c)
 )
 
-; (deffunction random-sample$ (?list ?n)
-;     (bind ?result (create$))
-;     (bind ?indices (create$))
-;     (loop-for-count (?i 1 ?n)
-;         (bind ?index (random (length$ ?list)))
-;         (if (not (member$ ?index ?indices)) then
-;             (bind ?indices (insert$ ?indices 1 ?index))
-;             (bind ?result (insert$ ?result 1 (nth$ ?index ?list)))
-;         )
-;     )
-;     return ?result
-; )
+; NOTE: Genera todas las dietas posibles sin tener en cuenta las calorias
+(defrule seleccionar-dieta
+    (declare (salience 8))
+    ?c <- (calorias-base (valor ?valor))
+    =>
+    (bind ?comidas-posibles (find-all-facts ((?c comida)) TRUE)) ; NOTE: Cambiar true a que la comida no este en la lista de intoleracias
+    (if (> (length$ ?comidas-posibles) 2)
+        then
+        (loop-for-count (?i 1 (length$ ?comidas-posibles))
+            (loop-for-count (?j 1 (length$ ?comidas-posibles))
+                (if (neq ?i ?j) then
+                    (loop-for-count (?k 1 (length$ ?comidas-posibles))
+                        (if (and (neq ?i ?k) (neq ?j ?k)) then
+                            (bind ?comida1 (nth$ ?i ?comidas-posibles))
+                            (bind ?comida2 (nth$ ?j ?comidas-posibles))
+                            (bind ?comida3 (nth$ ?k ?comidas-posibles))
+                            (bind ?calorias-totales (+ (fact-slot-value ?comida1 calorias) (fact-slot-value ?comida2 calorias) (fact-slot-value ?comida3 calorias)))
+                            (printout t "Comidas seleccionadas para la dieta: " crlf)
+                            (printout t (fact-slot-value ?comida1 nombre) ", " (fact-slot-value ?comida1 calorias) " calorías" crlf)
+                            (printout t (fact-slot-value ?comida2 nombre) ", " (fact-slot-value ?comida2 calorias) " calorías" crlf)
+                            (printout t (fact-slot-value ?comida3 nombre) ", " (fact-slot-value ?comida3 calorias) " calorías" crlf)
+                            (printout t "Calorías totales: " ?calorias-totales crlf)
+                            (assert (dieta (comida1 (fact-slot-value ?comida1 nombre)) 
+                                            (comida2 (fact-slot-value ?comida2 nombre)) 
+                                            (comida3 (fact-slot-value ?comida3 nombre)) 
+                                            (calorias-totales ?calorias-totales)))
+                        )
+                    )
+                )
+            )
+        )
+    else
+        (printout t "No se encontraron suficientes comidas con ese rango calórico." crlf)
+    )
+)
 
-; NOTE: Necesita bastantes cambios
-; (defrule seleccionar-dieta
-;     ?c <- (calorias-base (valor ?valor))
-;     =>
-;     (bind ?comidas-posibles (find-all-facts ((?c comida)) TRUE)) ; NOTE: Cambiar true a que la comida no este en la lista de intoleracias
-;     (if (> (length$ ?comidas-posibles) 2)
-;         then
-;         (bind ?bucle 1)
-;         ( while (eq ?bucle 1)
-;             (printout t "Comidas seleccionadas para la dieta: " crlf)
-;             (bind ?roll1 (random 1 (length$ ?comidas-posibles)))
-;             (bind ?comida1 (nth$ ?roll1 ?comidas-posibles))
-;                 (printout t (fact-slot-value ?comida1 nombre) ", " (fact-slot-value ?comida1 calorias) " calorías" crlf)
-;             (bind ?roll2 (random 1 (length$ ?comidas-posibles)))
-;             (bind ?comida2 (nth$ ?roll2 ?comidas-posibles))
-;                 (printout t (fact-slot-value ?comida2 nombre) ", " (fact-slot-value ?comida2 calorias) " calorías" crlf)
-;             (bind ?roll3 (random 1 (length$ ?comidas-posibles)))
-;             (bind ?comida3 (nth$ ?roll3 ?comidas-posibles))
-;                 (printout t (fact-slot-value ?comida3 nombre) ", " (fact-slot-value ?comida3 calorias) " calorías" crlf)
-;             (bind ?calorias-totales (+ (fact-slot-value ?comida1 calorias) (fact-slot-value ?comida2 calorias) (fact-slot-value ?comida3 calorias)))
-;             (if (>= ?calorias-totales (+ ?valor 100) )
-;                 then
-;                 (bind ?bucle 0)
-;                 (printout t "Calorías totales: " ?calorias-totales crlf)
-;                 (assert (dieta (comida1 (fact-slot-value ?comida1 nombre)) 
-;                                 (comida2 (fact-slot-value ?comida2 nombre)) 
-;                                 (comida3 (fact-slot-value ?comida3 nombre)) 
-;                                 (calorias-totales ?calorias-totales)))
-;             )
-;         )
-        
-;     else
-;         (printout t "No se encontraron suficientes comidas con ese rango calórico." crlf)
-;         ; NOTE: Testeo de comidas posibles
-;     ;     (printout t "Comidas posibles: " crlf)
-;     ;     (loop-for-count (?i 1 (length$ ?comidas-posibles))
-;     ;       (bind ?comida (nth$ ?i ?comidas-posibles))
-;     ;       (printout t (fact-slot-value ?comida nombre) ", " (fact-slot-value ?comida calorias) " calorías" crlf))
-;     )
-; )
+; Eliminar dietas que no cumplan con los requisitos
+(defrule eliminar-dieta
+    (declare (salience 8))
+    ?d <- (dieta (calorias-totales ?calorias-totales) (carbohidratos ?carbohidratos))
+    
+    =>
+    (retract ?d)
+)
 
+; NOTE: Eliminar en el futuro
 (defrule main
     (declare (salience 10))
     => 
