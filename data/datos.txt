@@ -10,6 +10,6 @@ Persona
     Intolerancias
        
     Actividad
-        Baja
+        Alta
     Diabetes tipo 2
         No

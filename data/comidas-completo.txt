@@ -137,7 +137,7 @@ Pasta blanca con salsa de tomate y albóndigas de carne
     Alto
     Pasta Carne Tomate Gluten
 Arroz blanco con guisantes y zanahorias, servido con filetes de tilapia fritos
-    550
+    900
     75
     Bajo
     Alto
@@ -167,14 +167,26 @@ Filete de salmón a la parrilla con espárragos asados y ensalada de rúcula
     Bajo
     Salmon Esparragos Rucula
 Cazuela de pollo con queso y crema
-    700
+    800
     8
     Bajo
     Bajo
     Pollo Queso Crema Espinacas Champiñones
 Salmon al horno con costra de nueces y ensalada de aguacate
-    650
+    750
     12
     Bajo
     Bajo
     Salmon Nueces Aguacate Hojaa Aceite Oliva Frutos-secos
+Lasagna de carne y tres quesos
+    900
+    75
+    Alto
+    Alto
+    Pasta Carne molida Queso Salsa Tomate Gluten Lactosa
+Plato combinado de costillas de cerdo BBQ, puré de papas con mantequilla y maíz en mazorca
+    1200
+    100
+    Alto
+    Alto
+    Costillas Cerdo Salsa BBQ Papas Mantequilla Maiz

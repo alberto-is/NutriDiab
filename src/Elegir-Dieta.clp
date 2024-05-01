@@ -175,8 +175,8 @@
     (calorias-totales ?valor)
     (test 
         (or 
-            (> ?calorias-totales-dieta (+ ?valor 200))
-            (< ?calorias-totales-dieta (- ?valor 200))
+            (> ?calorias-totales-dieta (+ ?valor 300))
+            (< ?calorias-totales-dieta (- ?valor 300))
         )
     )
     =>
@@ -296,7 +296,21 @@
     (assert (dieta-seleccionada (comida1 ?comida1) (comida2 ?comida2) (comida3 ?comida3)))
 )
 ;; La más equilibrada en cuanto a carbohidratos (Personas deportistas)
-
+(defrule seleccionar-dieta-equilibrada-carbohidratos
+    (declare (salience 3))
+    (not (dieta-seleccionada))
+    (persona (actividad ?actividad-fisica))
+    (imc-et ?imc)
+    (test (and (eq ?actividad-fisica "Alta") 
+               (not(or(eq ?imc "IMC-obesidad-tipo-1") (eq ?imc "IMC-obesidad-tipo-2") (eq ?imc "IMC-obesidad-tipo-3")))))
+    (dieta (comida1 ?comida1) (comida2 ?comida2) (comida3 ?comida3))
+    (comida (nombre ?comida1)(carbohidratos ?carbohidratos1))
+    (comida (nombre ?comida2)(carbohidratos ?carbohidratos2))
+    (comida (nombre ?comida3)(carbohidratos ?carbohidratos3))
+    (test  (not (eq ?carbohidratos2 "Bajo")))
+    =>    
+    (assert (dieta-seleccionada (comida1 ?comida1) (comida2 ?comida2) (comida3 ?comida3)))
+)
 ;; La más variada (Se repiten el menor número de ingredientes)
 
 

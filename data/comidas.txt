@@ -29,7 +29,7 @@ Bowl de arroz integral con tofu salteado y verduras
     Medio
     Arroz Tofu Brocoli Zanahoria Pimiento
 Pasta integral con salsa de tomate y con albóndigas de pavo
-    500
+    550
     70
     Bajo
     Medio
@@ -53,7 +53,7 @@ Ensalada de quinoa con aguacate, con huevo duro y con atún
     Bajo
     Quinoa Aguacate Huevo Atun
 Omelette de espinacas y queso feta
-    300
+    350
     6
     Medio
     Bajo
@@ -94,3 +94,21 @@ Salmon al horno con costra de nueces y ensalada de aguacate
     Bajo
     Bajo
     Salmon Nueces Aguacate Hojaa Aceite Oliva Frutos-secos
+Lasagna de carne y tres quesos
+    900
+    75
+    Alto
+    Alto
+    Pasta Carne molida Queso Salsa Tomate Gluten Lactosa
+Plato combinado de costillas de cerdo BBQ, puré de papas con mantequilla y maíz en mazorca
+    1200
+    100
+    Alto
+    Alto
+    Costillas Cerdo Salsa BBQ Papas Mantequilla Maiz
+Arroz blanco con guisantes y zanahorias, servido con filetes de tilapia fritos
+    900
+    75
+    Bajo
+    Alto
+    Arroz Tilapia Guisantes Zanahorias
