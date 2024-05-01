@@ -15,7 +15,12 @@
     (slot carbohidratos)
     (slot restricciones)
 )
-
+(deftemplate dieta-seleccionada
+    (slot comida1) ;Desayuno
+    (slot comida2) ;Almuerzo
+    (slot comida3) ;Cena
+    (slot restricciones); Suma de restricciones
+)
 
 ;NOTE: Eliminar en el futurio, al igual que el main
 (deftemplate calorias-base
@@ -178,12 +183,89 @@
     (retract ?d)
 )
 
+(deffunction parse-restricciones (?restricciones)
+    (switch ?restricciones
+        (case "Alto" then (return 3))
+        (case "Medio" then (return 2))
+        (case "Bajo" then (return 1))
+    )
+)
+
+; FIXME: uso la diferencia de salice para poder usar la variabel global
+;;; NOTE: Seleccionar en base al peso
+;; Seleccionar la dieta más sostenible a largo plazo (con la menor suma de restricciones)
+;; Para personas con un sobrepeso importante
+(defrule seleccionar-dieta-menos-restricciones
+    (declare (salience 3))
+    (not (dieta-seleccionada))
+    ?d <- (dieta (comida1 ?comida1) (comida2 ?comida2) (comida3 ?comida3))
+    (comida (nombre ?comida1)(restricciones ?restricciones1))
+    (comida (nombre ?comida2)(restricciones ?restricciones2))
+    (comida (nombre ?comida3)(restricciones ?restricciones3))
+    =>
+    (assert (dieta-seleccionada (comida1 ?comida1) (comida2 ?comida2) (comida3 ?comida3)
+                                (restricciones (+ (parse-restricciones ?restricciones1) (parse-restricciones ?restricciones2) 
+                                                  (parse-restricciones ?restricciones3)))
+            )
+    )
+    ; (printout t "--------------------------------------" crlf)
+    ; (printout t "Desayuno: " ?comida1 crlf)
+    ; (printout t "Almuerzo: " ?comida2 crlf)
+    ; (printout t "Cena: " ?comida3 crlf)
+    ; (printout t "Restricciones Totales num: " (+ (parse-restricciones ?restricciones1) (parse-restricciones ?restricciones2) 
+    ;                                               (parse-restricciones ?restricciones3)) crlf)
+    ; (printout t "--------------------------------------" crlf)
+)
+
+(defrule seleccionar-dieta-menos-restrictiva
+    (declare (salience 2))
+    ?d2 <- (dieta (comida1 ?comida1) (comida2 ?comida2) (comida3 ?comida3))
+    (comida (nombre ?comida1)(restricciones ?restricciones1))
+    (comida (nombre ?comida2)(restricciones ?restricciones2))
+    (comida (nombre ?comida3)(restricciones ?restricciones3))
+    ?d <- (dieta-seleccionada (restricciones ?restricciones-seleccionada))
+    (test (< (+ (parse-restricciones ?restricciones1) 
+                (parse-restricciones ?restricciones2) 
+                (parse-restricciones ?restricciones3)) 
+                ?restricciones-seleccionada)
+    )
+    =>
+    (modify ?d (comida1 ?comida1) (comida2 ?comida2) (comida3 ?comida3) 
+               (restricciones (+ (parse-restricciones ?restricciones1) 
+                                (parse-restricciones ?restricciones2) 
+                                (parse-restricciones ?restricciones3)))
+    )
+    ; (printout t "--------------------------------------" crlf)
+    ; (printout t "Desayuno: " ?comida1 crlf)
+    ; (printout t "Almuerzo: " ?comida2 crlf)
+    ; (printout t "Cena: " ?comida3 crlf)
+    ; (printout t "Restricciones Totales num: " (+ (parse-restricciones ?restricciones1) (parse-restricciones ?restricciones2) 
+    ;                                               (parse-restricciones ?restricciones3)) crlf)
+    ; (printout t "--------------------------------------" crlf)
+)
+
+;; La que tiene menos carbohidratos
+
+;; La más equilibrada en cuanto a carbohidratos (Personas deportistas)
+
+; La más variada (Se repiten el menor número de ingredientes)
+
+; Eliminar las dietas que no sean la seleccionada
+; (defrule eliminar-dieta-no-seleccionada
+;     (declare (salience 0))
+;     ?d <- (dieta (comida1 ?comida1) (comida2 ?comida2) (comida3 ?comida3) (calorias-totales ?calorias-totales))
+;     (not (dieta-seleccionada (comida1 ?comida1) (comida2 ?comida2) (comida3 ?comida3)))
+;     =>
+;     (retract ?d)
+; )
 ;;;Mostar dieta;;;
 ; Mostrar la dieta 
 (defrule mostrar-dieta
     (declare (salience 0))
     ?d <- (dieta (comida1 ?comida1) (comida2 ?comida2) (comida3 ?comida3) (calorias-totales ?calorias-totales))
+    (dieta-seleccionada (comida1 ?comida1) (comida2 ?comida2) (comida3 ?comida3))
     =>
+    (printout t "--------------------------------------" crlf)
     (printout t "Desayuno: " ?comida1 crlf)
     (printout t "Almuerzo: " ?comida2 crlf)
     (printout t "Cena: " ?comida3 crlf)

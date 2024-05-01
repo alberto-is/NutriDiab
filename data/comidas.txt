@@ -85,7 +85,7 @@ Pasta con salsa de crema y con salmón
 Arroz con pollo y con frijoles negros
     700
     85
-    Bajo
+    Medio
     Medio
     Arroz Pollo Frijoles negros Fibra
 Bocadillo de carne asada con queso y con batata frita
@@ -97,7 +97,7 @@ Bocadillo de carne asada con queso y con batata frita
 Ensalada de quinoa con aguacate, con huevo duro y con atún
     650
     55
-    Bajo
+    Medio
     Bajo
     Quinoa Aguacate Huevo Atun
 Burrito grande con arroz, con carne de cerdo, con guacamole y con frijoles
