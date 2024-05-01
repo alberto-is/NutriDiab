@@ -4,12 +4,12 @@ Persona
     Sexo
         Masculino
     Peso
-        100
+        40
     Altura
         160
     Intolerancias
        
     Actividad
-        Media
+        Baja
     Diabetes tipo 2
         No

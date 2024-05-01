@@ -191,14 +191,32 @@
     )
 )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Seleccionar la dieta más sostenible a largo plazo (con la menor suma de ;;;
+;;; restricciones)                                                          ;;;
+;;;       -> Personas con dificultad para aderirse a dietas. Por defecto    ;;;
+;;;          personas con actividad física baja y peso bajo o sobrepeso     ;;;
+;;; Selección de la dieta con menor cantidad de carbohidratos               ;;;
+;;;       -> Personas con cualquier grado de obesidad independientemente    ;;;
+;;;          de la actividad física                                         ;;;
+;;; Selección de la dieta más equilibrada en cuanto a carbohidratos         ;;;
+;;;       -> Personas con actividad física alta que no tenga obesidad       ;;;
+;;; Selección de la dieta más variada                                       ;;;
+;;;       -> Personas con dificultad para aderirse a dietas.                ;;;
+;;;          Por defecto personas con actividad física baja y peso normal   ;;;
+;;;          o actividad física media y peso bajo, sobrepeso o normal       ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ; FIXME: uso la diferencia de salice para poder usar la variabel global
 ;;; NOTE: Seleccionar en base al peso
 ;; Seleccionar la dieta más sostenible a largo plazo (con la menor suma de restricciones)
-;; Para personas con un sobrepeso importante
 (defrule seleccionar-dieta-menos-restricciones
     (declare (salience 3))
     (not (dieta-seleccionada))
-    ?d <- (dieta (comida1 ?comida1) (comida2 ?comida2) (comida3 ?comida3))
+    (persona (actividad ?actividad-fisica))
+    (imc-et ?imc)
+    (test (and (eq ?actividad-fisica "Baja") (or (eq ?imc "IMC-bajo") (eq ?imc "IMC-sobrepeso"))))
+    (dieta (comida1 ?comida1) (comida2 ?comida2) (comida3 ?comida3))
     (comida (nombre ?comida1)(restricciones ?restricciones1))
     (comida (nombre ?comida2)(restricciones ?restricciones2))
     (comida (nombre ?comida3)(restricciones ?restricciones3))
@@ -219,7 +237,10 @@
 
 (defrule seleccionar-dieta-menos-restrictiva
     (declare (salience 2))
-    ?d2 <- (dieta (comida1 ?comida1) (comida2 ?comida2) (comida3 ?comida3))
+    (persona (actividad ?actividad-fisica))
+    (imc-et ?imc)
+    (test (and (eq ?actividad-fisica "Baja") (or (eq ?imc "IMC-bajo") (eq ?imc "IMC-sobrepeso"))))
+    (dieta (comida1 ?comida1) (comida2 ?comida2) (comida3 ?comida3))
     (comida (nombre ?comida1)(restricciones ?restricciones1))
     (comida (nombre ?comida2)(restricciones ?restricciones2))
     (comida (nombre ?comida3)(restricciones ?restricciones3))
