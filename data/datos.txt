@@ -4,9 +4,9 @@ Persona
     Sexo
         Masculino
     Peso
-        40
+        90
     Altura
-        160
+        180
     Intolerancias
        
     Actividad

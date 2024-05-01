@@ -6,7 +6,7 @@ Manzana
     Manzana Fructosa
 Pechuga de pollo (sin piel) con lentejas
     750
-    83
+    50
     Medio
     Bajo
     Pollo Lentejas
@@ -142,3 +142,39 @@ Arroz blanco con guisantes y zanahorias, servido con filetes de tilapia fritos
     Bajo
     Alto
     Arroz Tilapia Guisantes Zanahorias
+Omelette de espinacas y queso feta
+    300
+    6
+    Medio
+    Bajo
+    Huevo Espinacas Queso feta
+Ensalada de pollo a la parrilla con aguacate y nueces
+    450
+    10
+    Bajo
+    Bajo
+    Pollo Aguacate Nueces Lechuga
+Sopa de calabaza con crema y semillas de calabaza tostadas
+    350
+    15
+    Alto
+    Bajo
+    Calabaza Crema Semillas
+Filete de salmón a la parrilla con espárragos asados y ensalada de rúcula
+    500
+    8
+    Bajo
+    Bajo
+    Salmon Esparragos Rucula
+Cazuela de pollo con queso y crema
+    700
+    8
+    Bajo
+    Bajo
+    Pollo Queso Crema Espinacas Champiñones
+Salmon al horno con costra de nueces y ensalada de aguacate
+    650
+    12
+    Bajo
+    Bajo
+    Salmon Nueces Aguacate Hojaa Aceite Oliva Frutos-secos

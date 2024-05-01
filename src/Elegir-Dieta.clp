@@ -58,11 +58,11 @@
     ?c <- (comida (nombre ?nombre)(carbohidratos ?carbohidratos))
     (test (numberp ?carbohidratos))
     =>
-    (if (<= ?carbohidratos 10)
+    (if (<= ?carbohidratos 20)
         then
         (modify ?c (carbohidratos "Bajo"))
     else
-        (if (<= ?carbohidratos 20)
+        (if (<= ?carbohidratos 50)
             then
             (modify ?c (carbohidratos "Medio"))
         else
@@ -265,20 +265,41 @@
     ; (printout t "--------------------------------------" crlf)
 )
 
-;; La que tiene menos carbohidratos
-
+;; Dieta baja en carbohidratos
+(defrule seleccionar-dieta-baja-carbohidratos
+    (declare (salience 3))
+    (not (dieta-seleccionada))
+    (persona (actividad ?actividad-fisica))
+    (imc-et ?imc)
+    (test  (or (eq ?imc "IMC-obesidad-tipo-1") (eq ?imc "IMC-obesidad-tipo-2") (eq ?imc "IMC-obesidad-tipo-3")))
+    (dieta (comida1 ?comida1) (comida2 ?comida2) (comida3 ?comida3))
+    (comida (nombre ?comida1)(carbohidratos ?carbohidratos1))
+    (comida (nombre ?comida2)(carbohidratos ?carbohidratos2))
+    (comida (nombre ?comida3)(carbohidratos ?carbohidratos3))
+    (test (and (eq ?carbohidratos1 "Bajo") (eq ?carbohidratos2 "Bajo") (eq ?carbohidratos3 "Bajo")))
+    =>    
+    (assert (dieta-seleccionada (comida1 ?comida1) (comida2 ?comida2) (comida3 ?comida3)))
+)
+; Si no encuentra ninguna amplia un poco la busqueda sin ser tan restrictiva en el almuerzo
+(defrule seleccionar-dieta-baja-carbohidratos
+    (declare (salience 2))
+    (not (dieta-seleccionada))
+    (persona (actividad ?actividad-fisica))
+    (imc-et ?imc)
+    (test  (or (eq ?imc "IMC-obesidad-tipo-1") (eq ?imc "IMC-obesidad-tipo-2") (eq ?imc "IMC-obesidad-tipo-3")))
+    (dieta (comida1 ?comida1) (comida2 ?comida2) (comida3 ?comida3))
+    (comida (nombre ?comida1)(carbohidratos ?carbohidratos1))
+    (comida (nombre ?comida2)(carbohidratos ?carbohidratos2))
+    (comida (nombre ?comida3)(carbohidratos ?carbohidratos3))
+    (test (and (eq ?carbohidratos1 "Bajo") (eq ?carbohidratos2 "Medio") (eq ?carbohidratos3 "Bajo")))
+    =>
+    (assert (dieta-seleccionada (comida1 ?comida1) (comida2 ?comida2) (comida3 ?comida3)))
+)
 ;; La más equilibrada en cuanto a carbohidratos (Personas deportistas)
 
-; La más variada (Se repiten el menor número de ingredientes)
+;; La más variada (Se repiten el menor número de ingredientes)
 
-; Eliminar las dietas que no sean la seleccionada
-; (defrule eliminar-dieta-no-seleccionada
-;     (declare (salience 0))
-;     ?d <- (dieta (comida1 ?comida1) (comida2 ?comida2) (comida3 ?comida3) (calorias-totales ?calorias-totales))
-;     (not (dieta-seleccionada (comida1 ?comida1) (comida2 ?comida2) (comida3 ?comida3)))
-;     =>
-;     (retract ?d)
-; )
+
 ;;;Mostar dieta;;;
 ; Mostrar la dieta 
 (defrule mostrar-dieta
@@ -291,5 +312,14 @@
     (printout t "Almuerzo: " ?comida2 crlf)
     (printout t "Cena: " ?comida3 crlf)
     (printout t "Calorias totales: " ?calorias-totales crlf)
+    (printout t "--------------------------------------" crlf)
+)
+
+(defrule mostrar-dieta-no-seleccionada
+    (declare (salience 0))
+    (not (dieta))
+    =>
+    (printout t "--------------------------------------" crlf)
+    (printout t "No se encontraron dietas" crlf)
     (printout t "--------------------------------------" crlf)
 )
