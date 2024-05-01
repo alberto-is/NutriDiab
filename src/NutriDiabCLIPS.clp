@@ -12,7 +12,7 @@
    (slot diabetes))
 
 ; NOTE: paso los datos string a strig-to-field para eliminar la tabulación inicial
-;Leer Datos paciente
+; Leer Datos paciente
 (defrule leer_archivo_Persona
     (declare (salience 10))
   =>
@@ -66,7 +66,7 @@
     =>
       (if (and (>= ?edad 3) (<= ?edad 100) (>= ?peso 25) (<= ?peso 200) 
             (>= ?altura 50) (<= ?altura 200) (or (eq ?sexo "Masculino") (eq ?sexo "Femenino")) 
-            (or (eq ?actividad "Baja") (eq ?actividad "Media") (eq ?actividad "Alta"))) ; Alta = Avtiava, Media = Moderada, Baja = Sedentaria
+            (or (eq ?actividad "Baja") (eq ?actividad "Media") (eq ?actividad "Alta"))) ; Alta = Activa, Media = Moderada, Baja = Sedentaria
       then
          (printout t "Paciente verificado" crlf)
       else
@@ -74,10 +74,3 @@
          (retract ?persona))
 
 )
-
-; Imprimir Hechos
-; (defrule imprimir-hechos
-;     (declare (salience -1))
-;   =>
-;    (facts)
-;    )

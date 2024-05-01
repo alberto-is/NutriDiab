@@ -8,7 +8,7 @@ Persona
     Altura
         180
     Intolerancias
-       
+        Lactosa
     Actividad
         Alta
     Diabetes tipo 2

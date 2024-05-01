@@ -22,10 +22,6 @@
     (slot restricciones); Suma de restricciones
 )
 
-;NOTE: Eliminar en el futurio, al igual que el main
-(deftemplate calorias-base
-    (slot valor)
-)  
 
 (defrule leer_archivo_comidas
     (declare (salience 10))
@@ -79,7 +75,6 @@
     (return FALSE)
 )
 
-; NOTE: Probar 
 ; Eliminamos cómidas que no cumplan con los requisitos
 (defrule eliminar-intoleracias
     (declare (salience 10))
@@ -104,7 +99,7 @@
     (declare (salience 8))
     ?c <- (calorias-totales  ?valor)
     =>
-    (bind ?comidas-posibles (find-all-facts ((?c comida)) TRUE)) ; NOTE: Cambiar true a que la comida no este en la lista de intoleracias
+    (bind ?comidas-posibles (find-all-facts ((?c comida)) TRUE))
     (if (> (length$ ?comidas-posibles) 2)
         then
         (loop-for-count (?i 1 (length$ ?comidas-posibles))
@@ -201,21 +196,16 @@
 ;;;          de la actividad física                                         ;;;
 ;;; Selección de la dieta más equilibrada en cuanto a carbohidratos         ;;;
 ;;;       -> Personas con actividad física alta que no tenga obesidad       ;;;
-;;; Selección de la dieta más variada                                       ;;;
-;;;       -> Personas con dificultad para aderirse a dietas.                ;;;
-;;;          Por defecto personas con actividad física baja y peso normal   ;;;
-;;;          o actividad física media y peso bajo, sobrepeso o normal       ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-; FIXME: uso la diferencia de salice para poder usar la variabel global
-;;; NOTE: Seleccionar en base al peso
 ;; Seleccionar la dieta más sostenible a largo plazo (con la menor suma de restricciones)
 (defrule seleccionar-dieta-menos-restricciones
     (declare (salience 3))
     (not (dieta-seleccionada))
     (persona (actividad ?actividad-fisica))
     (imc-et ?imc)
-    (test (and (eq ?actividad-fisica "Baja") (or (eq ?imc "IMC-bajo") (eq ?imc "IMC-sobrepeso"))))
+    (test ( or (and (eq ?actividad-fisica "Baja") (or (eq ?imc "IMC-bajo") (eq ?imc "IMC-normal")(eq ?imc "IMC-sobrepeso")))
+                (and (eq ?actividad-fisica "Media") (or (eq ?imc "IMC-bajo") (eq ?imc "IMC-normal") (eq ?imc "IMC-sobrepeso")))))
     (dieta (comida1 ?comida1) (comida2 ?comida2) (comida3 ?comida3))
     (comida (nombre ?comida1)(restricciones ?restricciones1))
     (comida (nombre ?comida2)(restricciones ?restricciones2))
@@ -226,13 +216,6 @@
                                                   (parse-restricciones ?restricciones3)))
             )
     )
-    ; (printout t "--------------------------------------" crlf)
-    ; (printout t "Desayuno: " ?comida1 crlf)
-    ; (printout t "Almuerzo: " ?comida2 crlf)
-    ; (printout t "Cena: " ?comida3 crlf)
-    ; (printout t "Restricciones Totales num: " (+ (parse-restricciones ?restricciones1) (parse-restricciones ?restricciones2) 
-    ;                                               (parse-restricciones ?restricciones3)) crlf)
-    ; (printout t "--------------------------------------" crlf)
 )
 
 (defrule seleccionar-dieta-menos-restrictiva
@@ -256,13 +239,6 @@
                                 (parse-restricciones ?restricciones2) 
                                 (parse-restricciones ?restricciones3)))
     )
-    ; (printout t "--------------------------------------" crlf)
-    ; (printout t "Desayuno: " ?comida1 crlf)
-    ; (printout t "Almuerzo: " ?comida2 crlf)
-    ; (printout t "Cena: " ?comida3 crlf)
-    ; (printout t "Restricciones Totales num: " (+ (parse-restricciones ?restricciones1) (parse-restricciones ?restricciones2) 
-    ;                                               (parse-restricciones ?restricciones3)) crlf)
-    ; (printout t "--------------------------------------" crlf)
 )
 
 ;; Dieta baja en carbohidratos
@@ -311,8 +287,6 @@
     =>    
     (assert (dieta-seleccionada (comida1 ?comida1) (comida2 ?comida2) (comida3 ?comida3)))
 )
-;; La más variada (Se repiten el menor número de ingredientes)
-
 
 ;;;Mostar dieta;;;
 ; Mostrar la dieta 
